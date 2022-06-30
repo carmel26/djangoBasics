@@ -1,0 +1,19 @@
+
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+{% comment %} in url we put the name of the url {% endcomment %}
+
+<a href="{% url 'projects' %}" >Come back on list of all </a> </br>
+<h1>{{projectObj.title}}</h1>
+<hr>
+{% for tag in tags %}
+    <span style="border:1px solid grey">{{tag}}</span>
+{% endfor %}
+<hr>
+</br>
+<p>{{projectObj.description}}</p>
+
+{% endblock content %}

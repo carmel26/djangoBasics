@@ -1,0 +1,49 @@
+
+
+    {% if querySet.has_other_pages %}
+    <div class="pagination">
+      <ul class="container">
+        
+        {% if querySet.has_previous %}
+        <li><a href="?pageSend={{querySet.previous_page_number}}" class="btn page-link" data-pageSended="{{querySet.previous_page_number}}">&#10094; Prev</a></li>
+        {% endif %}
+
+        {% comment %} {% for page in paginator.page_range %} {% endcomment %}
+        {% for page in custom_range %}
+            {% if page == querySet.number %}
+            <li><a href="?pageSend={{page}}" class="btn page-link btn--sub" data-pageSended="{{page}}">{{page}}</a></li>
+            {% else %}
+            <li><a href="?pageSend={{page}}" class="btn page-link" data-pageSended="{{page}}">{{page}}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if querySet.has_next%}
+          <li><a href="?pageSend={{querySet.next_page_number}}" class="btn page-link" data-pageSended="{{querySet.next_page_number}}">Next &#10095;</a></li>
+        {% endif %}
+      </ul>
+    </div>
+{% endif %}
+
+ <script type="text/javascript"> 
+   let searchForm = document.getElementById('idSearchForm');
+   let pageLinks = document.getElementsByClassName('page-link');
+ 
+   if(searchForm){
+        for(let i = 0; pageLinks.length > i; i ++){
+            pageLinks[i].addEventListener('click', function(e) {
+                e.preventDefault()
+                // console.log('Button click');
+
+                //  Get data attribute 
+                let page = this.dataset.pageSended;
+                console.log('PAGE ',this.dataset.pageSended)
+
+                // Add hiddent search input to form
+                searchForm.InnerHTML += `<input value="${page}" name="pageSend" hidden />`
+                
+                // submit Form 
+                searchForm.submit()
+            });
+        }
+   }
+</script> 
